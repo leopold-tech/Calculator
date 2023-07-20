@@ -57,7 +57,7 @@ body, html {
 .output {
     grid-column: 1 / -1;  /* Or span 4 - gives same result */
     background-color: rgba(0,0,0,0.4);
-    color: #ffffff;
+    color: rgb(255, 255, 255);
     margin-bottom: 20px;
     padding: 24px;
     font-size: 24px;
