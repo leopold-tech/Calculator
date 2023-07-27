@@ -1,4 +1,3 @@
-
 class Calc {
     constructor(previousOperandTextElement, currentOperandTextElement) {
         this.previousOperandTextElement = previousOperandTextElement;
