@@ -20,6 +20,8 @@ class Calc {
         // this.currentOperandTextElement.innerText = num.innerText;
         if (num === '.' && this.currentOperand.includes('.')) return;
         this.currentOperand = this.currentOperand.toString() + num.toString();
+
+        
     }
 
     opBtn(operation) {
@@ -63,11 +65,11 @@ class Calc {
         this.operation = undefined;
     }
 
-
     display() {
         // this.currentOperandTextElement.innerText = num.innerText;
 
         this.currentOperandTextElement.innerText = this.formatDisplay(this.currentOperand);
+
         if (this.operation != null) {
             this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`;
         } else {
@@ -76,9 +78,27 @@ class Calc {
     }
 
     formatDisplay(number) {
-        const floatNum = parseFloat(number);
-        if (isNaN(floatNum)) return '';
-        return floatNum.toLocaleString('en');
+        // if (number == '.' &&  this.currentOperand == '') {
+        //     console.log('decimal POINT')
+        //     this.currentOperandTextElement.innerText = `0${number}`;
+        // }
+
+        const strNum = number.toString();
+        const intNum = parseFloat(strNum.split('.')[0]);    //Splits into an array of [intNum, decimalNum]
+        const decimalNum = strNum.split('.')[1];
+        
+        let intValue;
+        if (isNaN(intNum)) {
+            intValue = '';
+        } else {
+            intValue = intNum.toLocaleString('en', { maximumFractionDigits: 0 });
+        } 
+
+        if (decimalNum != null) {   //If there are decimal numbers
+            return `${intValue}.${decimalNum}`;
+        } else {
+            return intValue;
+        }
     }
 }
 
@@ -97,16 +117,13 @@ operationButtons.forEach(button => {
     button.addEventListener('click', () => {
         calculator.opBtn(button.innerText);
         calculator.display();
-        // calculator.updateDisplay();
     })
 })
 
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
-        console.log(button.innerText);
         calculator.append(button.innerText);
         calculator.display();
-        // calculator.updateDisplay();
     })
 })
 
