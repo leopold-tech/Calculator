@@ -10,20 +10,51 @@ class Calculator {
     constructor(dataPreviousButton, dataCurrentButton) {
         this.dataPreviousButton = dataPreviousButton;
         this.dataCurrentButton = dataCurrentButton;
+        allClear()
     }
 
     allClear() {
         this.dataPreviousButton = '';
         this.dataCurrentButton = '';
+        this.operation = undefined;
     } 
 
-    delete() 
+    delete() {
+        // this.dataCurrentButton = this.dataCurrentButton.toString().slice(0,-1);
+    }
 
-    appendNumber(number)
+    appendNumber(number) {
+        this.dataCurrentButton = this.dataCurrentButton.toString() + number.toString();
+        // if (number === '.' && this.dataCurrentButton.includes('.')) return;
+        // this.dataCurrentButton = this.dataCurrentButton.toString() + number.toString();
+    }
 
-    chooseOperation(operation)
+    // chooseOperation(operation) {
+    //     if (this.dataPreviousButton !== '') {
+    //         this.compute();
+    //     }
+    //     if (this.dataCurrentButton === '') return;
+
+    //     this.operation = operation;
+    //     this.dataPreviousButton = this.dataCurrentButton;
+    //     this.dataCurrentButton = '';
+    // }
 
     compute()
 
-    updateDisplay()
+    getDisplayNumber(number)
+
+    updateDisplay() {
+        this.dataCurrentButton.innerText = this.dataCurrentButton;
+    }
 }
+
+
+const calculator = new Calculator(dataPreviousButton, dataCurrentButton);
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    })
+})
