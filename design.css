@@ -1,4 +1,4 @@
-*, *::before, *::after{
+* {
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
@@ -15,7 +15,7 @@ body, html {
     max-width: max-content;
     min-height: 40vh;
     text-align: center;
-    margin: 20% auto;
+    margin: 10vh auto;
     border-radius: 8px;
 }
 
