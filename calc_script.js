@@ -24,20 +24,52 @@ class Calc {
 
     opBtn(operation) {
         if (this.currentOperand === '') return;
+        if (this.previousOperand !== '') {
+            this.calculate();
+        }
         this.operation = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
     }
 
+    calculate() {
+        let number;
+        const prev = parseFloat(this.previousOperand);
+        const curr = parseFloat(this.currentOperand);
+
+        if (prev == isNaN || curr == isNaN) return;
+
+        switch(this.operation) {
+            case '+':
+                number = prev + curr;
+                break;
+            case '-':
+                number = prev - curr;
+                break;
+            case 'x':
+                number = prev * curr;
+                break;
+            case '÷':
+                number = prev / curr;
+                break;
+            case '%':
+                number = prev % curr;
+                break;
+            default:
+                return
+        }
+        this.currentOperand = number;
+        this.previousOperand = '';
+        this.operation = undefined;
+    }
+
+
     display() {
         // this.currentOperandTextElement.innerText = num.innerText;
         this.currentOperandTextElement.innerText = this.currentOperand;
         this.previousOperandTextElement.innerText = this.previousOperand;
+        }
     }
-
-    // calculate()
-
-    // updateDisplay() 
 }
 
 
@@ -54,7 +86,7 @@ const calculator = new Calc(previousOperandTextElement, currentOperandTextElemen
 operationButtons.forEach(button => {
     button.addEventListener('click', () => {
         calculator.opBtn(button.innerText);
-        calculator.display(button);
+        calculator.display();
         // calculator.updateDisplay();
     })
 })
@@ -63,10 +95,24 @@ numberButtons.forEach(button => {
     button.addEventListener('click', () => {
         console.log(button.innerText);
         calculator.append(button.innerText);
-        calculator.display(button);
+        calculator.display();
         // calculator.updateDisplay();
     })
 })
 
+equalButton.addEventListener('click', button => {
+    calculator.calculate();
+    calculator.display();
+})
+
+allClearButton.addEventListener('click', button => {
+    calculator.clear();
+    calculator.display();
+})
+
+deleteButton.addEventListener('click', button => {
+    calculator.delete();
+    calculator.display();
+})
 
 // console.log(this.currentOperand);  ==> This is undefined, where HTML button was being turned into a dom object HTML element
