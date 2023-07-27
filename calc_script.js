@@ -66,12 +66,19 @@ class Calc {
 
     display() {
         // this.currentOperandTextElement.innerText = num.innerText;
-        this.currentOperandTextElement.innerText = this.currentOperand;
+
+        this.currentOperandTextElement.innerText = this.formatDisplay(this.currentOperand);
         if (this.operation != null) {
             this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`;
         } else {
             this.previousOperandTextElement.innerText = this.previousOperand;
         }
+    }
+
+    formatDisplay(number) {
+        const floatNum = parseFloat(number);
+        if (isNaN(floatNum)) return '';
+        return floatNum.toLocaleString('en');
     }
 }
 
