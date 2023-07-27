@@ -22,7 +22,8 @@ class Calc {
         this.currentOperand = this.currentOperand.toString() + num.toString();
     }
 
-    operation(operation) {
+    opBtn(operation) {
+        if (this.currentOperand === '') return;
         this.operation = operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
@@ -50,6 +51,14 @@ const currentOperandTextElement = document.querySelector('.current-operand');
 
 const calculator = new Calc(previousOperandTextElement, currentOperandTextElement);
 
+operationButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.opBtn(button.innerText);
+        calculator.display(button);
+        // calculator.updateDisplay();
+    })
+})
+
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
         console.log(button.innerText);
@@ -59,13 +68,5 @@ numberButtons.forEach(button => {
     })
 })
 
-operationButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        console.log(button.innerText);
-        calculator.operation(button.innerText);
-        calculator.display(button);
-        // calculator.updateDisplay();
-    })
-})
 
 // console.log(this.currentOperand);  ==> This is undefined, where HTML button was being turned into a dom object HTML element
